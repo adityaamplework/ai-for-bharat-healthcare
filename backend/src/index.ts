@@ -77,6 +77,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Lightweight health check — no DB, responds instantly
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok" });
+});
+
 (async () => {
   await seedFoods().catch((err) => console.error("Seed error:", err));
   await registerRoutes(httpServer, app);
